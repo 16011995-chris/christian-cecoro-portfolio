@@ -133,3 +133,13 @@
   }
 }
 
+/* Hide all site UI elements on Studio page */
+body[data-route^="studio"] header,
+body[data-route^="studio"] nav,
+body[data-route^="studio"] aside,
+body[data-route^="studio"] > div > div[class*="fixed"] {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
