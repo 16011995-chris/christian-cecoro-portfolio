@@ -1,10 +1,12 @@
 import Link from "next/link";
 import ContactSpline from "@/components/contact/ContactSpline";
 import RollingButton from "@/components/ui/RollingButton";
+import PageLayout from "@/components/layout/PageLayout";
 
 export default function ContactPage() {
     return (
-        <main className="bg-black min-h-screen text-white relative overflow-x-hidden">
+        <PageLayout>
+            <main className="bg-black min-h-screen text-white relative overflow-x-hidden">
             <ContactSpline />
 
             <div className="min-h-screen flex flex-col justify-center items-center px-6 md:px-24 relative z-10">
@@ -42,5 +44,6 @@ export default function ContactPage() {
                 </div>
             </div>
         </main>
+        </PageLayout>
     );
 }

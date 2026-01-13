@@ -7,6 +7,7 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { Project } from "@/types";
 import { formatCategoryName } from "@/lib/formatCategory";
+import PageLayout from "@/components/layout/PageLayout";
 
 export default function WorksPage() {
     const [projects, setProjects] = useState<Project[]>([]);
@@ -78,7 +79,8 @@ export default function WorksPage() {
     };
 
     return (
-        <main className="min-h-screen w-full bg-black pt-32 pb-24 px-6 md:px-24 overflow-y-auto">
+        <PageLayout>
+            <main className="min-h-screen w-full bg-black pt-32 pb-24 px-6 md:px-24 overflow-y-auto">
             <div className="max-w-[1400px] mx-auto">
                 {/* Title */}
                 <motion.div
@@ -232,5 +234,6 @@ export default function WorksPage() {
                 )}
             </div>
         </main>
+        </PageLayout>
     );
 }

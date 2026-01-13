@@ -9,6 +9,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import { formatCategoryName } from "@/lib/formatCategory";
+import PageLayout from "@/components/layout/PageLayout";
 
 export default function ProjectDetailPage() {
     const { slug } = useParams();
@@ -32,7 +33,8 @@ export default function ProjectDetailPage() {
 
     if (isLoading) {
         return (
-            <main className="min-h-screen bg-black text-white pb-32">
+            <PageLayout>
+                <main className="min-h-screen bg-black text-white pb-32">
                 <div className="pt-40 px-8 md:px-24 mb-16 animate-pulse">
                     <div className="h-4 bg-neutral-900 rounded w-32 mb-12" />
                     <div className="h-20 bg-neutral-900 rounded w-3/4 mb-8" />
@@ -44,13 +46,15 @@ export default function ProjectDetailPage() {
                     <div className="w-full aspect-video bg-neutral-900 rounded-sm animate-pulse" />
                 </div>
             </main>
+            </PageLayout>
         );
     }
 
-    if (!project) return <div className="min-h-screen bg-black" />;
+    if (!project) return <PageLayout><div className="min-h-screen bg-black" /></PageLayout>;
 
     return (
-        <main className="min-h-screen bg-black text-white pb-32">
+        <PageLayout>
+            <main className="min-h-screen bg-black text-white pb-32">
 
             {/* 1. Header Section */}
             <div className="pt-40 px-8 md:px-24 mb-16 relative z-10">
@@ -140,5 +144,6 @@ export default function ProjectDetailPage() {
             </div>
 
         </main>
+        </PageLayout>
     );
 }

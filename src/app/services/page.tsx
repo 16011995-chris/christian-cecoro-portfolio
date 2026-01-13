@@ -1,10 +1,12 @@
 import ServicesList from "@/components/services/ServicesList";
 import ContactCTA from "@/components/home/ContactCTA";
 import Link from "next/link";
+import PageLayout from "@/components/layout/PageLayout";
 
 export default function ServicesPage() {
     return (
-        <main className="bg-black min-h-screen relative">
+        <PageLayout>
+            <main className="bg-black min-h-screen relative">
 
 
             <div className="pt-32 px-6 md:px-24 mb-12">
@@ -17,5 +19,6 @@ export default function ServicesPage() {
 
             <ServicesList />
         </main>
+        </PageLayout>
     );
 }
