@@ -132,3 +132,11 @@
     border-color: inherit;
   }
 }
+
+/* Hide site UI on Sanity Studio pages - CSS fallback */
+body:has([data-sanity]) header,
+body:has([data-sanity]) nav,
+body:has([id*="sanity"]) header,
+body:has([id*="sanity"]) nav {
+  display: none !important;
+}
