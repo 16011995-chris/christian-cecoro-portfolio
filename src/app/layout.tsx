@@ -1,11 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { SmoothScrollProvider } from "@/components/providers/SmoothScrollProvider";
-import CustomCursor from "@/components/ui/CustomCursor";
-
-import Header from "@/components/shared/Header";
-import ViewportNavigation from "@/components/layout/ViewportNavigation";
-import IubendaBanner from "@/components/shared/IubendaBanner";
+import ConditionalLayout from "@/components/layout/ConditionalLayout";
 
 export const metadata: Metadata = {
   title: "Christian Cecoro | Portfolio",
@@ -20,15 +15,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className="antialiased bg-black text-white selection:bg-brand-red selection:text-white">
-        <CustomCursor />
-        <SmoothScrollProvider>
-          <Header />
-          <ViewportNavigation />
-
-          {children}
-
-          <IubendaBanner />
-        </SmoothScrollProvider>
+        <ConditionalLayout>{children}</ConditionalLayout>
       </body>
     </html>
   );
