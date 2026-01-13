@@ -133,10 +133,12 @@
   }
 }
 
-/* Hide site UI on Sanity Studio pages - CSS fallback */
-body:has([data-sanity]) header,
-body:has([data-sanity]) nav,
-body:has([id*="sanity"]) header,
-body:has([id*="sanity"]) nav {
+/* Hide site UI on Sanity Studio pages */
+body.studio-page header,
+body.studio-page nav,
+body.studio-page #viewport-navigation,
+body.studio-page .custom-cursor {
   display: none !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
 }
