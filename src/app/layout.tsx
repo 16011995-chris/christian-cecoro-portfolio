@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import ConditionalLayout from "@/components/layout/ConditionalLayout";
+import ClientOnlyLayout from "@/components/layout/ClientOnlyLayout";
 
 export const metadata: Metadata = {
   title: "Christian Cecoro | Portfolio",
@@ -15,7 +15,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className="antialiased bg-black text-white selection:bg-brand-red selection:text-white">
-        <ConditionalLayout>{children}</ConditionalLayout>
+        <ClientOnlyLayout>{children}</ClientOnlyLayout>
       </body>
     </html>
   );
