@@ -134,11 +134,19 @@
 }
 
 /* Hide site UI on Sanity Studio pages */
+body[data-studio-route] header,
+body[data-studio-route] nav,
+body[data-studio-route] aside,
+body.studio-route header,
+body.studio-route nav,
+body.studio-route aside,
 body.studio-page header,
 body.studio-page nav,
-body.studio-page #viewport-navigation,
-body.studio-page .custom-cursor {
+body.studio-page aside {
   display: none !important;
   visibility: hidden !important;
+  opacity: 0 !important;
   pointer-events: none !important;
+  position: absolute !important;
+  left: -9999px !important;
 }
