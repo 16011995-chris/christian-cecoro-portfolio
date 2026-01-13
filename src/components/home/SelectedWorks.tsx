@@ -19,7 +19,7 @@ export default async function SelectedWorks() {
                             </h3>
                         </div>
                         <span className="text-xs uppercase border border-white/20 px-3 py-1 rounded-full group-hover:bg-brand-red group-hover:border-brand-red transition-colors">
-                            {project.projectType}
+                            {project.projectTypes?.[0]?.replace(/-/g, ' ') || 'Project'}
                         </span>
                     </Link>
                 ))}
