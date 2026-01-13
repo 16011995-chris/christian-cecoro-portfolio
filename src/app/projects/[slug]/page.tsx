@@ -10,6 +10,8 @@ import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import { formatCategoryName } from "@/lib/formatCategory";
 import PageLayout from "@/components/layout/PageLayout";
+import ProjectGallery from "@/components/projects/ProjectGallery";
+import { urlForImage } from "@/sanity/lib/image";
 
 export default function ProjectDetailPage() {
     const { slug } = useParams();
@@ -23,6 +25,17 @@ export default function ProjectDetailPage() {
                 if (slug && typeof slug === 'string') {
                     const data = await getProject(slug);
                     setProject(data);
+
+                    // Update document title and meta description
+                    if (data) {
+                        document.title = `${data.title} | Christian Cecoro`;
+
+                        // Update meta description
+                        const metaDesc = document.querySelector('meta[name="description"]');
+                        if (metaDesc && data.description) {
+                            metaDesc.setAttribute('content', data.description);
+                        }
+                    }
                 }
             } finally {
                 setIsLoading(false);
@@ -94,8 +107,12 @@ export default function ProjectDetailPage() {
                 >
                     {project.mainImage && (
                         <Image
-                            src={project.mainImage}
-                            alt={project.title}
+                            src={typeof project.mainImage === 'string'
+                                ? project.mainImage
+                                : urlForImage(project.mainImage).width(1400).quality(90).url()}
+                            alt={typeof project.mainImage === 'string'
+                                ? project.title
+                                : (project.mainImage.alt || project.title)}
                             fill
                             className="object-cover"
                             priority
@@ -128,12 +145,10 @@ export default function ProjectDetailPage() {
                 </div>
             </div>
 
-            {/* 4. Gallery Placeholder */}
-            <div className="px-8 md:px-24 max-w-[1400px] mx-auto mb-32 grid grid-cols-1 md:grid-cols-2 gap-4 relative z-10">
-                <div className="aspect-square bg-neutral-900 rounded-sm flex items-center justify-center text-neutral-700">Gallery Image 1</div>
-                <div className="aspect-square bg-neutral-900 rounded-sm flex items-center justify-center text-neutral-700">Gallery Image 2</div>
-                <div className="aspect-video col-span-1 md:col-span-2 bg-neutral-900 rounded-sm flex items-center justify-center text-neutral-700">Full Width Detail</div>
-            </div>
+            {/* 4. Gallery */}
+            {project.images && project.images.length > 0 && (
+                <ProjectGallery images={project.images} />
+            )}
 
             {/* 5. Next Project */}
             <div className="border-t border-white/10 pt-24 text-center relative z-10">

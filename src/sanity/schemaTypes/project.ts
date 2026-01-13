@@ -59,6 +59,40 @@ export default defineType({
             title: 'Main Image (Hero)',
             type: 'image',
             options: { hotspot: true },
+            fields: [
+                {
+                    name: 'alt',
+                    type: 'string',
+                    title: 'Alt Text',
+                    validation: (rule) => rule.required(),
+                },
+            ],
+        }),
+        defineField({
+            name: 'images',
+            title: 'Project Gallery',
+            type: 'array',
+            description: 'Gallery images for this project. Max 20 images.',
+            of: [{
+                type: 'image',
+                options: { hotspot: true },
+                fields: [
+                    {
+                        name: 'alt',
+                        type: 'string',
+                        title: 'Alt Text (Required)',
+                        description: 'Describe the image for accessibility and SEO.',
+                        validation: (rule) => rule.required(),
+                    },
+                    {
+                        name: 'caption',
+                        type: 'text',
+                        title: 'Caption (Optional)',
+                        rows: 2,
+                    },
+                ],
+            }],
+            validation: (rule) => rule.max(20),
         }),
         defineField({
             name: 'description',
@@ -107,6 +141,35 @@ export default defineType({
                 { type: 'block' },
                 { type: 'image' }
             ]
+        }),
+
+        // --- SEO Settings ---
+        defineField({
+            name: 'seo',
+            title: 'SEO Settings',
+            type: 'object',
+            description: 'Override default SEO metadata for this project.',
+            fields: [
+                {
+                    name: 'metaTitle',
+                    type: 'string',
+                    title: 'Meta Title',
+                    validation: (rule) => rule.max(60),
+                },
+                {
+                    name: 'metaDescription',
+                    type: 'text',
+                    title: 'Meta Description',
+                    rows: 3,
+                    validation: (rule) => rule.max(160),
+                },
+                {
+                    name: 'ogImage',
+                    type: 'image',
+                    title: 'Social Share Image (Open Graph)',
+                    description: 'Recommended size: 1200x630px',
+                },
+            ],
         })
     ],
 })

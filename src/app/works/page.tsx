@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import { Project } from "@/types";
 import { formatCategoryName } from "@/lib/formatCategory";
 import PageLayout from "@/components/layout/PageLayout";
+import { urlForImage } from "@/sanity/lib/image";
 
 export default function WorksPage() {
     const [projects, setProjects] = useState<Project[]>([]);
@@ -171,8 +172,12 @@ export default function WorksPage() {
                                     <div className="aspect-[4/3] bg-neutral-900 mb-4 overflow-hidden rounded-sm relative">
                                         {project.mainImage ? (
                                             <Image
-                                                src={project.mainImage}
-                                                alt={project.title}
+                                                src={typeof project.mainImage === 'string'
+                                                    ? project.mainImage
+                                                    : urlForImage(project.mainImage).width(800).quality(85).url()}
+                                                alt={typeof project.mainImage === 'string'
+                                                    ? project.title
+                                                    : (project.mainImage.alt || project.title)}
                                                 fill
                                                 className="object-cover transition-transform duration-700 group-hover:scale-105"
                                                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"

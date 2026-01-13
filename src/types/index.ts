@@ -1,19 +1,7 @@
-export interface Project {
-    _id: string;
-    title: string;
-    slug: { current: string };
-    orderIndex?: number;
-    projectTypes: string[]; // Changed from projectType (single) to projectTypes (array)
-    client?: string;
-    mainImage?: any;
-    description?: string;
-    challenge?: string;
-    approach?: string;
-    solution?: string;
-    images?: any[];
-    brandColors?: string[];
-    content?: Array<SanityBlock | SanityImageBlock>;
-}
+// Re-export Sanity types
+export * from './sanity';
+
+// Keep existing block types for backward compatibility
 
 export type ProjectType =
     | 'brand-identity'
