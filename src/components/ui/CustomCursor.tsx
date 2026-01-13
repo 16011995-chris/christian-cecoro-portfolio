@@ -13,10 +13,12 @@ export default function CustomCursor() {
     useEffect(() => {
         // Detect touch-primary devices using media queries (most reliable)
         const hasCoarsePointer = window.matchMedia('(pointer: coarse)').matches;
+        const hasFinePointer = window.matchMedia('(pointer: fine)').matches;
         const isMobileUserAgent = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 
         // A device is touch-primary if it has coarse pointer OR mobile user agent
-        const isTouchPrimary = hasCoarsePointer || isMobileUserAgent;
+        // BUT we prioritize fine pointer (desktop with mouse) over touch
+        const isTouchPrimary = (hasCoarsePointer && !hasFinePointer) || isMobileUserAgent;
 
         setIsTouchDevice(isTouchPrimary);
 
@@ -27,7 +29,9 @@ export default function CustomCursor() {
 
         const cursor = cursorRef.current;
         const follower = followerRef.current;
-        if (!cursor || !follower) return;
+        if (!cursor || !follower) {
+            return;
+        }
 
         // RAF-based update for smooth 60fps
         const updateCursorPosition = () => {
@@ -73,7 +77,7 @@ export default function CustomCursor() {
                 el.removeEventListener("mouseleave", handleHoverEnd);
             });
         };
-    }, []);
+    }, [isTouchDevice]); // Re-run when isTouchDevice changes
 
     // Don't render on touch devices
     if (isTouchDevice) return null;
