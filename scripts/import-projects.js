@@ -104,7 +104,8 @@ async function importProjects() {
     let errorCount = 0;
 
     // Import each project
-    for (const project of projects) {
+    for (let i = 0; i < projects.length; i++) {
+        const project = projects[i];
         try {
             const sanityDoc = {
                 _type: 'project',
@@ -113,6 +114,7 @@ async function importProjects() {
                     _type: 'slug',
                     current: createSlug(project.TITOLO)
                 },
+                orderIndex: i + 1, // Assign order based on CSV position (1-13)
                 projectTypes: mapProjectTypes(project.TIPO_PROGETTO),
                 client: project.CLIENTE,
                 description: project.DESCRIZIONE_PROGETTO,

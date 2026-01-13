@@ -2,6 +2,7 @@ export interface Project {
     _id: string;
     title: string;
     slug: { current: string };
+    orderIndex?: number;
     projectTypes: string[]; // Changed from projectType (single) to projectTypes (array)
     client?: string;
     mainImage?: any;

@@ -22,6 +22,13 @@ export default defineType({
             validation: (rule) => rule.required(),
         }),
         defineField({
+            name: 'orderIndex',
+            title: 'Order Index',
+            type: 'number',
+            description: 'Used to maintain custom project order. Lower numbers appear first.',
+            validation: (rule) => rule.required().min(1),
+        }),
+        defineField({
             name: 'projectTypes',
             title: 'Project Types',
             description: 'Select one or more types that describe this project.',
