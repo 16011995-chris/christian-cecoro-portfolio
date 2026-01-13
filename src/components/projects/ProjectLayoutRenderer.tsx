@@ -1,5 +1,6 @@
 import { cn } from "@/lib/utils";
 import { Project } from "@/types";
+import { formatCategoryName } from "@/lib/formatCategory";
 
 interface LayoutProps {
     project: Project;
@@ -61,7 +62,7 @@ export default function ProjectLayoutRenderer({ project }: LayoutProps) {
             {/* Common Hero for all projects */}
             <div className="px-8 md:px-16 mb-24">
                 <span className="text-xs uppercase border border-white/20 px-3 py-1 rounded-full mb-6 inline-block">
-                    {project.projectTypes?.[0]?.replace(/-/g, ' ') || 'Project'}
+                    {formatCategoryName(project.projectTypes?.[0] || '') || 'Project'}
                 </span>
                 <h1 className="font-serif text-[8vw] leading-none mb-8">{project.title}</h1>
                 <p className="text-2xl text-gray-400 max-w-4xl leading-tight">{project.description}</p>

@@ -133,6 +133,13 @@
   }
 }
 
+/* Force hide custom cursor on touch devices - CSS fallback */
+@media (hover: none) and (pointer: coarse) {
+  [data-custom-cursor] {
+    display: none !important;
+  }
+}
+
 /* Hide all site UI elements on Studio page */
 body[data-route^="studio"] header,
 body[data-route^="studio"] nav,

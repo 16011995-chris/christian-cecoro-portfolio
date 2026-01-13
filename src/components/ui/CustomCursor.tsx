@@ -11,14 +11,15 @@ export default function CustomCursor() {
     const [isTouchDevice, setIsTouchDevice] = useState(true); // Default true per SSR
 
     useEffect(() => {
-        // Detect touch device
+        // Detect touch device - Triple check strategy for robustness
         const hasTouchSupport = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
         const hasCoarsePointer = window.matchMedia('(pointer: coarse)').matches;
+        const isMobileUserAgent = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 
-        setIsTouchDevice(hasTouchSupport || hasCoarsePointer);
+        setIsTouchDevice(hasTouchSupport || hasCoarsePointer || isMobileUserAgent);
 
         // Don't attach listeners on touch devices
-        if (hasTouchSupport || hasCoarsePointer) {
+        if (hasTouchSupport || hasCoarsePointer || isMobileUserAgent) {
             return;
         }
 
@@ -77,8 +78,8 @@ export default function CustomCursor() {
 
     return (
         <>
-            <div ref={cursorRef} className="fixed top-0 left-0 w-2 h-2 bg-white rounded-full pointer-events-none z-[9999] mix-blend-difference -translate-x-1/2 -translate-y-1/2" />
-            <div ref={followerRef} className="fixed top-0 left-0 w-8 h-8 border border-white rounded-full pointer-events-none z-[9998] mix-blend-difference -translate-x-1/2 -translate-y-1/2 transition-colors" />
+            <div ref={cursorRef} data-custom-cursor className="fixed top-0 left-0 w-2 h-2 bg-white rounded-full pointer-events-none z-[9999] mix-blend-difference -translate-x-1/2 -translate-y-1/2" />
+            <div ref={followerRef} data-custom-cursor className="fixed top-0 left-0 w-8 h-8 border border-white rounded-full pointer-events-none z-[9998] mix-blend-difference -translate-x-1/2 -translate-y-1/2 transition-colors" />
         </>
     );
 }
