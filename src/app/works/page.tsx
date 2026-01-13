@@ -19,12 +19,12 @@ export default function WorksPage() {
                 const data = await getProjects();
                 setProjects(data);
 
-                // Extract unique categories
+                // Extract unique categories from projectTypes array
                 const categories = new Set<string>();
                 data.forEach(project => {
-                    if (project.projectType) {
-                        project.projectType.split(' / ').forEach(cat => {
-                            categories.add(cat.trim());
+                    if (project.projectTypes && Array.isArray(project.projectTypes)) {
+                        project.projectTypes.forEach(type => {
+                            categories.add(type);
                         });
                     }
                 });
@@ -36,13 +36,12 @@ export default function WorksPage() {
         fetchProjects();
     }, []);
 
-    // Filter logic
+    // Filter logic - check if project has any of the selected categories
     const filteredProjects = selectedCategories.length === 0
         ? projects
         : projects.filter(project => {
-            if (!project.projectType) return false;
-            const projectCats = project.projectType.split(' / ').map(c => c.trim());
-            return selectedCategories.some(selectedCat => projectCats.includes(selectedCat));
+            if (!project.projectTypes || !Array.isArray(project.projectTypes)) return false;
+            return selectedCategories.some(selectedCat => project.projectTypes.includes(selectedCat));
         });
 
     const toggleCategory = (category: string) => {
@@ -200,14 +199,14 @@ export default function WorksPage() {
                                             {project.title}
                                         </h2>
 
-                                        {/* Pill Tags - Rendered Separately */}
+                                        {/* Pill Tags - Rendered from projectTypes array */}
                                         <div className="flex flex-wrap gap-2">
-                                            {project.projectType?.split(' / ').map((type, i) => (
+                                            {project.projectTypes?.map((type, i) => (
                                                 <span
                                                     key={i}
                                                     className="px-3 py-1 rounded-full border border-white/10 text-[10px] uppercase tracking-widest text-neutral-400 bg-white/5 backdrop-blur-sm group-hover:border-white/30 group-hover:text-white transition-all"
                                                 >
-                                                    {type}
+                                                    {type.replace(/-/g, ' ')}
                                                 </span>
                                             ))}
                                         </div>

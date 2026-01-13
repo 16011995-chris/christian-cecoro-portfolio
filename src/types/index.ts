@@ -2,7 +2,7 @@ export interface Project {
     _id: string;
     title: string;
     slug: { current: string };
-    projectType: string;
+    projectTypes: string[]; // Changed from projectType (single) to projectTypes (array)
     client?: string;
     mainImage?: any;
     description?: string;
@@ -14,7 +14,15 @@ export interface Project {
     content?: Array<SanityBlock | SanityImageBlock>;
 }
 
-export type ProjectType = 'branding' | 'uxui' | 'social';
+export type ProjectType =
+    | 'brand-identity'
+    | 'uxui'
+    | 'visual-design'
+    | 'art-direction'
+    | 'mobile-app'
+    | '3d-motion'
+    | 'product-design'
+    | 'advertising';
 
 export interface SanityBlock {
     _type: 'block';

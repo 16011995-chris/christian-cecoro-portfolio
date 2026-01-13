@@ -22,20 +22,28 @@ export default defineType({
             validation: (rule) => rule.required(),
         }),
         defineField({
-            name: 'projectType',
-            title: 'Project Type (Automation Trigger)',
-            description: 'Select the type to trigger the automatic layout: Branding = Visual focus, UX/UI = Process focus.',
-            type: 'string',
-            options: {
-                list: [
-                    { title: 'Brand Identity', value: 'branding' },
-                    { title: 'UX/UI Design', value: 'uxui' },
-                    { title: 'Social Media', value: 'social' },
-                ],
-                layout: 'radio'
-            },
-            initialValue: 'branding',
-            validation: (rule) => rule.required(),
+            name: 'projectTypes',
+            title: 'Project Types',
+            description: 'Select one or more types that describe this project.',
+            type: 'array',
+            of: [
+                {
+                    type: 'string',
+                    options: {
+                        list: [
+                            { title: 'Brand Identity', value: 'brand-identity' },
+                            { title: 'UX/UI Design', value: 'uxui' },
+                            { title: 'Visual Design', value: 'visual-design' },
+                            { title: 'Art Direction', value: 'art-direction' },
+                            { title: 'Mobile App', value: 'mobile-app' },
+                            { title: '3D Motion', value: '3d-motion' },
+                            { title: 'Product Design', value: 'product-design' },
+                            { title: 'Advertising', value: 'advertising' },
+                        ],
+                    }
+                }
+            ],
+            validation: (rule) => rule.required().min(1).max(5),
         }),
 
         // --- Common Fields ---
@@ -62,8 +70,8 @@ export default defineType({
             name: 'brandColors',
             title: 'Brand Palette',
             type: 'array',
-            of: [{ type: 'string' }], // In real app, create a 'color' object type
-            hidden: ({ document }) => document?.projectType !== 'branding',
+            of: [{ type: 'string' }],
+            description: 'Add brand colors (hex codes). Typically shown for Brand Identity projects.',
         }),
 
         // --- UX/UI Specific Automation Data ---
