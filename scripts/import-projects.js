@@ -6,7 +6,7 @@ const client = createClient({
     projectId: '1gge58ux', // Your Sanity project ID
     dataset: 'production',
     apiVersion: '2024-01-08',
-    token: process.env.SANITY_WRITE_TOKEN || 'YOUR_WRITE_TOKEN_HERE', // Get from Sanity dashboard
+    token: process.env.SANITY_WRITE_TOKEN || 'skhLFBF39wrIkos3zIAsb9pdQxWsusyTSx69aiQDJk9ZGJJIUXN6lARMPQ8nlX1O7dLFJVZJ08uELFGNG1yG8c8c3uy9OeeDj5MXktZC7GsRxvqdOOqAa88zsbnLnskJpH4dzoB8XNKZ7xrdVoaQAw9wBbWvFiROOSDlqOX7Rkdt3AbistHU',
     useCdn: false
 });
 
