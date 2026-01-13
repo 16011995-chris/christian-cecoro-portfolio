@@ -64,9 +64,9 @@ export default function ProjectDetailPage() {
                 <div className="flex flex-col md:flex-row justify-between items-start md:items-end border-t border-white/20 pt-8 gap-8">
                     {/* Categories */}
                     <div className="flex flex-wrap gap-2 max-w-md">
-                        {project.projectType?.split(' / ').map((type, i) => (
+                        {project.projectTypes?.map((type, i) => (
                             <span key={i} className="px-3 py-1 rounded-full border border-white/20 text-xs uppercase tracking-widest">
-                                {type}
+                                {type.replace(/-/g, ' ')}
                             </span>
                         ))}
                     </div>
