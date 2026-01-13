@@ -11,15 +11,17 @@ export default function CustomCursor() {
     const [isTouchDevice, setIsTouchDevice] = useState(true); // Default true per SSR
 
     useEffect(() => {
-        // Detect touch device - Triple check strategy for robustness
-        const hasTouchSupport = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+        // Detect touch-primary devices using media queries (most reliable)
         const hasCoarsePointer = window.matchMedia('(pointer: coarse)').matches;
         const isMobileUserAgent = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 
-        setIsTouchDevice(hasTouchSupport || hasCoarsePointer || isMobileUserAgent);
+        // A device is touch-primary if it has coarse pointer OR mobile user agent
+        const isTouchPrimary = hasCoarsePointer || isMobileUserAgent;
 
-        // Don't attach listeners on touch devices
-        if (hasTouchSupport || hasCoarsePointer || isMobileUserAgent) {
+        setIsTouchDevice(isTouchPrimary);
+
+        // Don't attach listeners on touch-primary devices
+        if (isTouchPrimary) {
             return;
         }
 
