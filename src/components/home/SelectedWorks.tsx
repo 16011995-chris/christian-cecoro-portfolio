@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { getProjects } from '@/lib/sanity';
 import { Project } from '@/types';
+import { formatCategoryName } from '@/lib/formatCategory';
 
 export default async function SelectedWorks() {
     const projects = await getProjects();
@@ -19,7 +20,7 @@ export default async function SelectedWorks() {
                             </h3>
                         </div>
                         <span className="text-xs uppercase border border-white/20 px-3 py-1 rounded-full group-hover:bg-brand-red group-hover:border-brand-red transition-colors">
-                            {project.projectTypes?.[0]?.replace(/-/g, ' ') || 'Project'}
+                            {project.projectTypes?.[0] ? formatCategoryName(project.projectTypes[0]) : 'Project'}
                         </span>
                     </Link>
                 ))}

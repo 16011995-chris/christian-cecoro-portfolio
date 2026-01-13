@@ -45,7 +45,7 @@ export default function LiquidEdge({ position, className, children, onClick }: L
     return (
         <div
             className={cn(
-                "absolute z-50 flex items-center justify-center cursor-pointer pointer-events-auto",
+                "absolute z-50 flex items-center justify-center cursor-pointer-desktop pointer-events-auto",
                 isHorizontal ? "w-full h-12 left-0" : "h-full w-12 top-0",
                 position === "top" && "top-0",
                 position === "bottom" && "bottom-0",

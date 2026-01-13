@@ -6,6 +6,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { Project } from "@/types";
+import { formatCategoryName } from "@/lib/formatCategory";
 
 export default function WorksPage() {
     const [projects, setProjects] = useState<Project[]>([]);
@@ -142,7 +143,7 @@ export default function WorksPage() {
                                         : 'border-white/20 text-neutral-400 hover:border-white/40 hover:text-white'
                                 }`}
                             >
-                                {category}
+                                {formatCategoryName(category)}
                             </button>
                         ))}
                         </div>
@@ -206,7 +207,7 @@ export default function WorksPage() {
                                                     key={i}
                                                     className="px-3 py-1 rounded-full border border-white/10 text-[10px] uppercase tracking-widest text-neutral-400 bg-white/5 backdrop-blur-sm group-hover:border-white/30 group-hover:text-white transition-all"
                                                 >
-                                                    {type.replace(/-/g, ' ')}
+                                                    {formatCategoryName(type)}
                                                 </span>
                                             ))}
                                         </div>

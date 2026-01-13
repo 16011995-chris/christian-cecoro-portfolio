@@ -8,6 +8,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
+import { formatCategoryName } from "@/lib/formatCategory";
 
 export default function ProjectDetailPage() {
     const { slug } = useParams();
@@ -53,7 +54,7 @@ export default function ProjectDetailPage() {
 
             {/* 1. Header Section */}
             <div className="pt-40 px-8 md:px-24 mb-16 relative z-10">
-                <Link href="/works" className="relative z-50 inline-flex items-center text-neutral-400 hover:text-white mb-12 transition-colors text-sm uppercase tracking-widest cursor-pointer">
+                <Link href="/works" className="relative z-50 inline-flex items-center text-neutral-400 hover:text-white mb-12 transition-colors text-sm uppercase tracking-widest cursor-pointer-desktop">
                     <ArrowLeft className="w-4 h-4 mr-2" /> Back to Works
                 </Link>
 
@@ -66,7 +67,7 @@ export default function ProjectDetailPage() {
                     <div className="flex flex-wrap gap-2 max-w-md">
                         {project.projectTypes?.map((type, i) => (
                             <span key={i} className="px-3 py-1 rounded-full border border-white/20 text-xs uppercase tracking-widest">
-                                {type.replace(/-/g, ' ')}
+                                {formatCategoryName(type)}
                             </span>
                         ))}
                     </div>
@@ -133,7 +134,7 @@ export default function ProjectDetailPage() {
             {/* 5. Next Project */}
             <div className="border-t border-white/10 pt-24 text-center relative z-10">
                 <p className="text-neutral-500 uppercase tracking-widest text-xs mb-4">Next Project</p>
-                <Link href="/works" className="font-serif text-[8vw] hover:text-brand-red transition-colors cursor-pointer">
+                <Link href="/works" className="font-serif text-[8vw] hover:text-brand-red transition-colors cursor-pointer-desktop">
                     View All Works
                 </Link>
             </div>

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 
 export default function CustomCursor() {
@@ -8,8 +8,20 @@ export default function CustomCursor() {
     const followerRef = useRef<HTMLDivElement>(null);
     const rafIdRef = useRef<number | null>(null);
     const mousePositionRef = useRef({ x: 0, y: 0 });
+    const [isTouchDevice, setIsTouchDevice] = useState(true); // Default true per SSR
 
     useEffect(() => {
+        // Detect touch device
+        const hasTouchSupport = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+        const hasCoarsePointer = window.matchMedia('(pointer: coarse)').matches;
+
+        setIsTouchDevice(hasTouchSupport || hasCoarsePointer);
+
+        // Don't attach listeners on touch devices
+        if (hasTouchSupport || hasCoarsePointer) {
+            return;
+        }
+
         const cursor = cursorRef.current;
         const follower = followerRef.current;
         if (!cursor || !follower) return;
@@ -59,6 +71,9 @@ export default function CustomCursor() {
             });
         };
     }, []);
+
+    // Don't render on touch devices
+    if (isTouchDevice) return null;
 
     return (
         <>

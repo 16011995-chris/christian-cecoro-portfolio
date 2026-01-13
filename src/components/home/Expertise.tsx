@@ -30,7 +30,7 @@ export default function Expertise() {
                             <h3 className="font-serif text-2xl text-white">{area.title}</h3>
                             <ul className="space-y-4">
                                 {area.services.map((service, j) => (
-                                    <li key={j} className="text-gray-400 text-base border-b border-white/10 pb-2 hover:text-white hover:border-white transition-colors cursor-pointer">
+                                    <li key={j} className="text-gray-400 text-base border-b border-white/10 pb-2 hover:text-white hover:border-white transition-colors cursor-pointer-desktop">
                                         {service}
                                     </li>
                                 ))}
