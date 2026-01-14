@@ -1,7 +1,17 @@
+import type { Metadata } from 'next';
 import Link from "next/link";
 import ContactSpline from "@/components/contact/ContactSpline";
 import RollingButton from "@/components/ui/RollingButton";
 import PageLayout from "@/components/layout/PageLayout";
+
+export const metadata: Metadata = {
+  title: 'Contact',
+  description: 'Get in touch with Christian Cecoro for your next digital design project. Let\'s work together to create something amazing.',
+  openGraph: {
+    title: 'Contact | Christian Cecoro',
+    description: 'Get in touch with Christian Cecoro for your next digital design project. Let\'s work together to create something amazing.',
+  },
+};
 
 export default function ContactPage() {
     return (

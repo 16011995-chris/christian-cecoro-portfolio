@@ -1,7 +1,17 @@
+import type { Metadata } from 'next';
 import ServicesList from "@/components/services/ServicesList";
 import ContactCTA from "@/components/home/ContactCTA";
 import Link from "next/link";
 import PageLayout from "@/components/layout/PageLayout";
+
+export const metadata: Metadata = {
+  title: 'Services',
+  description: 'Digital design services offered by Christian Cecoro - Brand Identity, UX/UI Design, Visual Design, and Motion Design.',
+  openGraph: {
+    title: 'Services | Christian Cecoro',
+    description: 'Digital design services offered by Christian Cecoro - Brand Identity, UX/UI Design, Visual Design, and Motion Design.',
+  },
+};
 
 export default function ServicesPage() {
     return (
