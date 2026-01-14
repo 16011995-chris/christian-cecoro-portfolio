@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import { urlForImage } from '@/sanity/lib/image';
 import { SanityImage as SanityImageType } from '@/types/sanity';
 
@@ -9,7 +8,6 @@ interface SanityImageProps {
   height?: number;
   quality?: number;
   className?: string;
-  priority?: boolean;
 }
 
 export default function SanityImage({
@@ -19,7 +17,6 @@ export default function SanityImage({
   height = 800,
   quality = 90,
   className = '',
-  priority = false,
 }: SanityImageProps) {
   if (!image || !image.asset) {
     return null;
@@ -33,13 +30,13 @@ export default function SanityImage({
     .url();
 
   return (
-    <Image
+    // eslint-disable-next-line @next/next/no-img-element
+    <img
       src={imageUrl}
       alt={alt || image.alt || 'Project image'}
       width={width}
       height={height}
       className={className}
-      priority={priority}
     />
   );
 }

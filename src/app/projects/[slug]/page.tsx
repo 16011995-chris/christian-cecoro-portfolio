@@ -5,7 +5,6 @@ import { useParams } from "next/navigation";
 import { getProject } from "@/lib/sanity";
 import { Project } from "@/types";
 import { motion } from "framer-motion";
-import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import { formatCategoryName } from "@/lib/formatCategory";
@@ -106,16 +105,15 @@ export default function ProjectDetailPage() {
                     transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
                 >
                     {project.mainImage && (
-                        <Image
+                        // eslint-disable-next-line @next/next/no-img-element
+                        <img
                             src={typeof project.mainImage === 'string'
                                 ? project.mainImage
                                 : urlForImage(project.mainImage).width(1400).quality(90).url()}
                             alt={typeof project.mainImage === 'string'
                                 ? project.title
                                 : (project.mainImage.alt || project.title)}
-                            fill
-                            className="object-cover"
-                            priority
+                            className="absolute inset-0 w-full h-full object-cover"
                         />
                     )}
                 </motion.div>

@@ -5,7 +5,6 @@ import Lightbox from 'yet-another-react-lightbox';
 import 'yet-another-react-lightbox/styles.css';
 import { SanityImage as SanityImageType } from '@/types/sanity';
 import { urlForImage } from '@/sanity/lib/image';
-import Image from 'next/image';
 
 interface ProjectGalleryProps {
   images: SanityImageType[];
@@ -44,12 +43,11 @@ export default function ProjectGallery({ images }: ProjectGalleryProps) {
               }}
             >
               <div className="aspect-square relative overflow-hidden rounded-sm">
-                <Image
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
                   src={thumbnailUrl}
                   alt={img.alt || `Gallery Image ${i + 1}`}
-                  fill
-                  className="object-cover group-hover:scale-105 transition-transform duration-500"
-                  sizes="(max-width: 768px) 100vw, 50vw"
+                  className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 />
               </div>
             </div>
