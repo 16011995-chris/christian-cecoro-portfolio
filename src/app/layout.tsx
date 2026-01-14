@@ -6,11 +6,11 @@ import GoogleAnalytics from "@/components/analytics/GoogleAnalytics";
 export const metadata: Metadata = {
   metadataBase: new URL('https://christiancecoro.com'),
   title: {
-    default: 'Christian Cecoro | Digital Designer & Art Director',
+    default: 'Christian Cecoro | Designer',
     template: '%s | Christian Cecoro',
   },
-  description: 'Portfolio of Christian Cecoro - Digital Designer & Art Director specializing in Brand Identity, UX/UI Design, and Visual Design.',
-  keywords: ['digital designer', 'art director', 'brand identity', 'ux ui design', 'visual design', 'portfolio'],
+  description: 'Portfolio of Christian Cecoro - Designer specializing in Brand Identity, UX/UI Design, and Visual Design.',
+  keywords: ['designer', 'digital designer', 'brand identity', 'ux ui design', 'visual design', 'portfolio'],
   authors: [{ name: 'Christian Cecoro' }],
   creator: 'Christian Cecoro',
   openGraph: {
@@ -18,8 +18,8 @@ export const metadata: Metadata = {
     locale: 'en_US',
     url: 'https://christiancecoro.com',
     siteName: 'Christian Cecoro Portfolio',
-    title: 'Christian Cecoro | Digital Designer & Art Director',
-    description: 'Portfolio of Christian Cecoro - Digital Designer & Art Director specializing in Brand Identity, UX/UI Design, and Visual Design.',
+    title: 'Christian Cecoro | Designer',
+    description: 'Portfolio of Christian Cecoro - Designer specializing in Brand Identity, UX/UI Design, and Visual Design.',
     images: [
       {
         url: '/og-image.jpg',
@@ -31,8 +31,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Christian Cecoro | Digital Designer & Art Director',
-    description: 'Portfolio of Christian Cecoro - Digital Designer & Art Director',
+    title: 'Christian Cecoro | Designer',
+    description: 'Portfolio of Christian Cecoro - Designer',
     images: ['/og-image.jpg'],
   },
   robots: {
