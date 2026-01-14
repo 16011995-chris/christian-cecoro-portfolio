@@ -13,8 +13,32 @@ export async function getProject(slug: string): Promise<Project | null> {
 
     try {
         const query = `*[_type == "project" && slug.current == $slug][0]{
-            _id, title, slug, orderIndex, projectTypes, client, mainImage,
-            description, challenge, approach, solution, images, brandColors, content
+            _id,
+            title,
+            slug,
+            orderIndex,
+            projectTypes,
+            client,
+            "mainImage": mainImage{
+                asset->,
+                alt,
+                hotspot,
+                crop
+            },
+            description,
+            challenge,
+            approach,
+            solution,
+            "images": images[]{
+                asset->,
+                alt,
+                caption,
+                hotspot,
+                crop
+            },
+            brandColors,
+            content,
+            seo
         }`;
 
         const project = await client.fetch<Project>(query, { slug });
@@ -47,7 +71,19 @@ export async function getProjects(): Promise<Project[]> {
 
     try {
         const query = `*[_type == "project"] | order(orderIndex asc) {
-            _id, title, slug, orderIndex, projectTypes, mainImage, description, client
+            _id,
+            title,
+            slug,
+            orderIndex,
+            projectTypes,
+            "mainImage": mainImage{
+                asset->,
+                alt,
+                hotspot,
+                crop
+            },
+            description,
+            client
         }`;
 
         const projects = await client.fetch<Project[]>(query);
