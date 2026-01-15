@@ -6,8 +6,8 @@ interface FooterProps {
 
 export default function Footer({ simple = false }: FooterProps) {
     return (
-        <footer className="bg-black text-white px-8 md:px-16 py-12 flex flex-col md:flex-row justify-between items-end border-t border-white/10">
-            <div>
+        <footer className="bg-black text-white px-8 md:px-16 py-12 flex flex-col md:flex-row justify-between items-center md:items-end border-t border-white/10">
+            <div className="text-center md:text-left w-full md:w-auto">
                 {!simple ? (
                     <>
                         <h2 className="font-serif text-[4vw] leading-none mb-4">Let's work together</h2>
@@ -18,7 +18,7 @@ export default function Footer({ simple = false }: FooterProps) {
                 )}
             </div>
 
-            <div className="flex gap-8 mt-8 md:mt-0 text-xs uppercase tracking-widest items-center">
+            <div className="flex gap-8 mt-8 md:mt-0 text-xs uppercase tracking-widest items-center justify-center md:justify-start">
                 <a href="#" className="hover:text-brand-red transition-colors">LinkedIn</a>
                 <a href="#" className="hover:text-brand-red transition-colors">Instagram</a>
                 <a href="#" className="hover:text-brand-red transition-colors">Colors</a>
