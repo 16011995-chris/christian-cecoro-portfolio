@@ -18,7 +18,7 @@ export default function Footer({ simple = false }: FooterProps) {
                 )}
             </div>
 
-            <div className="flex gap-8 mt-8 md:mt-0 text-xs uppercase tracking-widest items-center justify-center md:justify-start">
+            <div className="flex gap-8 mt-8 md:mt-0 text-xs uppercase tracking-widest items-center justify-center md:justify-start w-full md:w-auto">
                 <a href="#" className="hover:text-brand-red transition-colors">LinkedIn</a>
                 <a href="#" className="hover:text-brand-red transition-colors">Instagram</a>
                 <a href="#" className="hover:text-brand-red transition-colors">Colors</a>
