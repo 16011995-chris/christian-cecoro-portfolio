@@ -10,7 +10,7 @@ interface RollingButtonProps {
 }
 
 export default function RollingButton({ text, href, onClick, className = "" }: RollingButtonProps) {
-    const sharedClasses = `group relative inline-flex h-14 overflow-hidden rounded-full border border-white/20 bg-transparent px-8 transition-colors hover:border-brand-red ${className}`;
+    const sharedClasses = `group relative inline-flex justify-center h-14 overflow-hidden rounded-full border border-white/20 bg-transparent px-8 transition-colors hover:border-brand-red ${className}`;
 
     const content = (
         <div className="relative flex h-full items-center flex-col transition-transform duration-500 ease-[cubic-bezier(0.19,1,0.22,1)] group-hover:-translate-y-[100%]">
