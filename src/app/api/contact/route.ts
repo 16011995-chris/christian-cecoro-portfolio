@@ -1,6 +1,5 @@
 import { NextResponse } from 'next/server';
 import { Resend } from 'resend';
-import { google } from 'googleapis';
 import { z } from 'zod';
 
 // Validation schema
@@ -20,20 +19,7 @@ function getResendClient() {
   return new Resend(process.env.RESEND_API_KEY);
 }
 
-// Google Sheets auth
-async function getGoogleSheetsClient() {
-  const auth = new google.auth.GoogleAuth({
-    credentials: {
-      client_email: process.env.GOOGLE_SHEETS_CLIENT_EMAIL,
-      private_key: process.env.GOOGLE_SHEETS_PRIVATE_KEY?.replace(/\\n/g, '\n'),
-    },
-    scopes: ['https://www.googleapis.com/auth/spreadsheets'],
-  });
-
-  return google.sheets({ version: 'v4', auth });
-}
-
-// Append to Google Sheets
+// Append to Google Sheets via Apps Script
 async function appendToSheet(data: {
   firstName: string;
   lastName: string;
@@ -41,23 +27,22 @@ async function appendToSheet(data: {
   message: string;
 }) {
   try {
-    const sheets = await getGoogleSheetsClient();
-    const spreadsheetId = process.env.GOOGLE_SHEETS_SPREADSHEET_ID;
+    const webAppUrl = process.env.GOOGLE_SHEETS_WEBAPP_URL;
 
-    if (!spreadsheetId) {
-      console.warn('Google Sheets not configured, skipping...');
+    if (!webAppUrl) {
+      console.warn('Google Sheets Web App not configured, skipping...');
       return;
     }
 
-    const timestamp = new Date().toISOString();
-    const values = [[timestamp, data.firstName, data.lastName, data.email, data.message]];
-
-    await sheets.spreadsheets.values.append({
-      spreadsheetId,
-      range: 'Sheet1!A:E',
-      valueInputOption: 'USER_ENTERED',
-      requestBody: { values },
+    const response = await fetch(webAppUrl, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data),
     });
+
+    if (!response.ok) {
+      throw new Error(`Apps Script error: ${response.status}`);
+    }
 
     console.log('Successfully added to Google Sheets');
   } catch (error) {

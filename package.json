@@ -15,7 +15,6 @@
     "@splinetool/runtime": "^1.12.32",
     "clsx": "^2.1.1",
     "framer-motion": "^12.24.11",
-    "googleapis": "^170.1.0",
     "gsap": "^3.14.2",
     "lenis": "^1.3.17",
     "lucide-react": "^0.562.0",
