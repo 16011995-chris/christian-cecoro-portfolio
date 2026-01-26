@@ -6,6 +6,14 @@ export interface SanityImage extends Image {
   _type: 'image';
 }
 
+export interface YouTubeVideo {
+  _type: 'youtubeVideo';
+  url: string;
+  title?: string;
+}
+
+export type GalleryItem = SanityImage | YouTubeVideo;
+
 export interface ProjectSEO {
   metaTitle?: string;
   metaDescription?: string;
@@ -20,12 +28,13 @@ export interface Project {
   projectTypes: string[];
   client?: string;
   mainImage?: SanityImage | string; // Support both Sanity images and mock data strings
-  images?: SanityImage[];
+  gallery?: GalleryItem[];
+  images?: SanityImage[]; // Legacy field - backward compatibility
   description?: string;
   challenge?: string;
   approach?: string;
   solution?: string;
   brandColors?: string[];
-  content?: Array<any>; // Block content - può rimanere any
+  content?: Array<any>; // Block content
   seo?: ProjectSEO;
 }

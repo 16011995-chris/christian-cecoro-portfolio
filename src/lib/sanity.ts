@@ -29,6 +29,20 @@ export async function getProject(slug: string): Promise<Project | null> {
             challenge,
             approach,
             solution,
+            "gallery": gallery[]{
+                _type,
+                _type == "image" => {
+                    asset->,
+                    alt,
+                    caption,
+                    hotspot,
+                    crop
+                },
+                _type == "youtubeVideo" => {
+                    url,
+                    title
+                }
+            },
             "images": images[]{
                 asset->,
                 alt,

@@ -144,9 +144,9 @@ export default function ProjectDetailPage() {
             </div>
 
             {/* 4. Gallery */}
-            {project.images && project.images.length > 0 && (
-                <ProjectGallery images={project.images} />
-            )}
+            {(project.gallery && project.gallery.length > 0) || (project.images && project.images.length > 0) ? (
+                <ProjectGallery gallery={project.gallery} images={project.images} />
+            ) : null}
 
             {/* 5. Next Project */}
             <div className="border-t border-white/10 pt-24 text-center relative z-10">

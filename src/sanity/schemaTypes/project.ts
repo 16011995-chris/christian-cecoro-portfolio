@@ -69,30 +69,78 @@ export default defineType({
             ],
         }),
         defineField({
-            name: 'images',
+            name: 'gallery',
             title: 'Project Gallery',
             type: 'array',
-            description: 'Gallery images for this project. Max 20 images.',
+            description: 'Add images or YouTube videos. Max 20 items.',
+            of: [
+                {
+                    type: 'image',
+                    name: 'galleryImage',
+                    title: 'Image',
+                    options: { hotspot: true },
+                    fields: [
+                        {
+                            name: 'alt',
+                            type: 'string',
+                            title: 'Alt Text (Required)',
+                            description: 'Describe the image for accessibility and SEO.',
+                            validation: (rule) => rule.required(),
+                        },
+                        {
+                            name: 'caption',
+                            type: 'text',
+                            title: 'Caption (Optional)',
+                            rows: 2,
+                        },
+                    ],
+                },
+                {
+                    type: 'object',
+                    name: 'youtubeVideo',
+                    title: 'YouTube Video',
+                    fields: [
+                        {
+                            name: 'url',
+                            type: 'url',
+                            title: 'YouTube URL',
+                            description: 'Paste the full YouTube video URL',
+                            validation: (rule) => rule.required(),
+                        },
+                        {
+                            name: 'title',
+                            type: 'string',
+                            title: 'Video Title (Optional)',
+                        },
+                    ],
+                    preview: {
+                        select: { title: 'title', url: 'url' },
+                        prepare({ title, url }) {
+                            return {
+                                title: title || 'YouTube Video',
+                                subtitle: url,
+                                media: () => '🎬'
+                            };
+                        },
+                    },
+                },
+            ],
+            validation: (rule) => rule.max(20),
+        }),
+        // Legacy field - keep for backward compatibility
+        defineField({
+            name: 'images',
+            title: 'Legacy Images (Deprecated)',
+            type: 'array',
+            hidden: true,
             of: [{
                 type: 'image',
                 options: { hotspot: true },
                 fields: [
-                    {
-                        name: 'alt',
-                        type: 'string',
-                        title: 'Alt Text (Required)',
-                        description: 'Describe the image for accessibility and SEO.',
-                        validation: (rule) => rule.required(),
-                    },
-                    {
-                        name: 'caption',
-                        type: 'text',
-                        title: 'Caption (Optional)',
-                        rows: 2,
-                    },
+                    { name: 'alt', type: 'string', title: 'Alt Text' },
+                    { name: 'caption', type: 'text', title: 'Caption', rows: 2 },
                 ],
             }],
-            validation: (rule) => rule.max(20),
         }),
         defineField({
             name: 'description',
