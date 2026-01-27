@@ -1,8 +1,9 @@
 'use client';
 
-import { useState, FormEvent } from 'react';
+import { useState, FormEvent, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Loader2, CheckCircle, AlertCircle } from 'lucide-react';
+import ReCAPTCHA from 'react-google-recaptcha';
 
 interface ContactModalProps {
   isOpen: boolean;
@@ -29,6 +30,8 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
   });
   const [status, setStatus] = useState<FormStatus>('idle');
   const [errorMessage, setErrorMessage] = useState('');
+  const [captchaToken, setCaptchaToken] = useState<string | null>(null);
+  const recaptchaRef = useRef<ReCAPTCHA>(null);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value, type } = e.target;
@@ -40,6 +43,13 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
+
+    if (!captchaToken) {
+      setErrorMessage('Please complete the reCAPTCHA verification.');
+      setStatus('error');
+      return;
+    }
+
     setStatus('loading');
     setErrorMessage('');
 
@@ -47,7 +57,7 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
       const res = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({ ...formData, captchaToken }),
       });
 
       if (res.ok) {
@@ -60,6 +70,8 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
           message: '',
           privacy: false,
         });
+        setCaptchaToken(null);
+        recaptchaRef.current?.reset();
         // Close after delay
         setTimeout(() => {
           onClose();
@@ -236,6 +248,17 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
                       </a>{' '}
                       *
                     </label>
+                  </div>
+
+                  {/* reCAPTCHA */}
+                  <div className="flex justify-center">
+                    <ReCAPTCHA
+                      ref={recaptchaRef}
+                      sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || ''}
+                      onChange={(token) => setCaptchaToken(token)}
+                      onExpired={() => setCaptchaToken(null)}
+                      theme="dark"
+                    />
                   </div>
 
                   {/* Error Message */}

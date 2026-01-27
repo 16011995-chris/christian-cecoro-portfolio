@@ -9,7 +9,32 @@ const contactSchema = z.object({
   email: z.string().email('Invalid email address'),
   message: z.string().max(1500, 'Message too long').optional().default(''),
   privacy: z.literal(true, { message: 'You must accept the privacy policy' }),
+  captchaToken: z.string().min(1, 'Please complete the reCAPTCHA'),
 });
+
+// Verify reCAPTCHA token with Google
+async function verifyCaptcha(token: string): Promise<boolean> {
+  const secretKey = process.env.RECAPTCHA_SECRET_KEY;
+
+  if (!secretKey) {
+    console.warn('reCAPTCHA secret key not configured, skipping verification...');
+    return true; // Allow in development
+  }
+
+  try {
+    const response = await fetch('https://www.google.com/recaptcha/api/siteverify', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: `secret=${secretKey}&response=${token}`,
+    });
+
+    const data = await response.json();
+    return data.success === true;
+  } catch (error) {
+    console.error('reCAPTCHA verification error:', error);
+    return false;
+  }
+}
 
 // Lazy initialize Resend
 function getResendClient() {
@@ -112,7 +137,16 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: errors }, { status: 400 });
     }
 
-    const data = result.data;
+    const { captchaToken, ...data } = result.data;
+
+    // Verify reCAPTCHA
+    const isValidCaptcha = await verifyCaptcha(captchaToken);
+    if (!isValidCaptcha) {
+      return NextResponse.json(
+        { error: 'reCAPTCHA verification failed. Please try again.' },
+        { status: 400 }
+      );
+    }
 
     // Run both operations in parallel
     await Promise.all([
