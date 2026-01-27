@@ -231,7 +231,7 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
                     />
                     <label htmlFor="privacy" className="text-sm text-neutral-400">
                       I agree to the processing of my personal data in accordance with the{' '}
-                      <a href="/privacy" className="text-white hover:text-brand-red transition-colors underline">
+                      <a href="https://www.iubenda.com/privacy-policy/33864853" target="_blank" rel="noopener noreferrer" className="text-white hover:text-brand-red transition-colors underline">
                         Privacy Policy
                       </a>{' '}
                       *
